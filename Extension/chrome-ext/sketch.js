@@ -1,15 +1,3 @@
-
-// let bgpage = chrome.extension.getBackgroundPage();
-// // console.log(bgpage.team1_pred);
-// let pred1 = bgpage.team1_pred;
-// let pred2 = bgpage.team2_pred;
-// let team1 = bgpage.team1;
-// let team2 = bgpage.team2;
-// console.log(pred1)
-// console.log(pred2)
-// console.log(team1)
-// console.log(team2)
-
 console.log("this is background script!")
 chrome.runtime.onMessage.addListener(receiver);
 function receiver(request, sender,sendResponse)
@@ -41,18 +29,4 @@ document.getElementById('%1').innerHTML = (progress1*100).toFixed(2) + "%"
 var progress2 = document.getElementById('data2').position;
 // document.getElementById('%2').innerHTML = Math.floor(progress2*100) + "%"
 document.getElementById('%2').innerHTML = (progress2*100).toFixed(2) + "%"
-// const g = document.createElement("progress");
-// g.setAttribute("value", request.team1_probability);
-// g.setAttribute("max", "1");
-// g.setAttribute("position", true);
-// document.getElementById("data1").append(g);
-// document.getElementById("%1").append(Math.floor(g.position*100) + '%');
-// const f = document.createElement("progress");
-// f.setAttribute("value", request.team2_probability);
-// f.setAttribute("max", "1");
-// f.setAttribute("position", true);
-// document.getElementById("data2").append(f);
-// document.getElementById("%2").append(Math.floor(f.position*100) + '%');
-//
-//
 }
