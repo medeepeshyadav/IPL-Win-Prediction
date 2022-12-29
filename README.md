@@ -64,16 +64,16 @@ This is the very important task in the whole project. Since, our application rel
 ### Density Plot
 The image shown below, shows the distribution of probabilities given by the model for trai and test data respectively. As we can see the densities at the ends (0 and 1) are not so high. Which means the model is less confident with the classification.
 
-[](/images/calibration1.png)
+![](/images/calibration1.png)
 
 The curve shown in the image below is called **reliability curve**. The dotted line in the plot is the ideal behaviour for the model we expect and the blue curve is the result of our model which is not at all reliable. Hence we need to calibrate the probabilites. Calibration of probabilities will bring the curve close to the expected behavior.
 
-[](/images/calibration2.png)
+![](/images/calibration2.png)
 
 ### Isotonic and Plat Calibration
 The plot shown below is the **reliablity curve** after we calibrate the probabilites. The green curve is for the **Isotonic Calibration** and the orange curve is for **Plat Calibration**. As we can see the Isotonic Calibrated probabilities give us more close to ideal behavior of the model we choose that for our final probabilities on which we can rely on.
 
-[](/images/calibration4.png)
+![](/images/calibration5.png)
 
 ### Density plot after calibration
 Shown below is the density plot after calibration. We can see the density at the edges (0 and 1) is much high compared to the previous plot, which means we can rely more on these probabilites rather than the old ones as they are more confident.
