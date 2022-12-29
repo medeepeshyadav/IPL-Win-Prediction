@@ -10,10 +10,11 @@ I have trained two models, one for first inning of the match and another for sec
 - [Model Training Script](#training)
 - [Model Evaluation](#evaluate)
 - [Plat and Isotonic Calibration](#calibration)
-- [Flask API](/API/main.py)
-- [Data Scraping](/API/beautifulSoup.py)
-- [Pipeline](/API/functional.py)
-- [Chrome Extension](/chrome-ext/)
+- [Flask API](#flask)
+- [Data Scraping](#scraping)
+- [Pipeline](#pipeline)
+- [Chrome Extension](#extension)
+- [What I Learnt](#lessons)
 
 <a name='dataprep1'>
 <h2>Data Preparation Inning-1</h2>
@@ -79,3 +80,64 @@ The plot shown below is the **reliablity curve** after we calibrate the probabil
 Shown below is the density plot after calibration. We can see the density at the edges (0 and 1) is much high compared to the previous plot, which means we can rely more on these probabilites rather than the old ones as they are more confident.
 
 ![](/images/calibration5.png)
+
+Given below is the notebook for calibrating probabilities.
+[Notebook: Calibration.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/Calibration.ipynb)
+
+<a name='flask'>
+<h2>Flask API</h2>
+</a>
+
+I created a flask RESTful API to **`GET`** live cricket data from the *cricbuzz.com* website and **`POST`** the win probabilities on our chrome extension to show the realtime match prediction.
+
+The code for the same is given in the script mentioned below.
+[Script: main.py](/API/main.py)
+
+<a name='scraping'>
+<h2>Data Scraping</h2>
+</a>
+
+In order to get the live match data from *cricbuzz.com* website, I used **`BeautifulSoup`** library to get the data in a dictionary and later convert it into dataframe for prediction. The following python script consists of the code for scraping data using BeautifulSoup.
+
+[Script: beautifulSoup.py](/API/beautifulSoup.py)
+
+<a name='pipeline'>
+<h2>Pipeline</h2>
+</a>
+
+Finally, the functional script which consists of the system pipeline code such that, if the inning-1 is going on model for inning-1 will be used and if the inning-2 is going on then the model for inning-2 will be used. The following python script consists of the code for pipeline.
+
+[Script: functional.py](/API/functional.py)
+
+<a name='extension'>
+<h2>Chrome Extension</h2>
+</a>
+
+Lastly, I created a chrome extension using **JavaScript** to show the live winning probabilities of each team. Given below is the directory which consists of the files for extension like `manifest.json` (a json file to create chrome extension), `popup.html` (an extension popup to show the output), `content.js`(to talk to our local host and get prediction data form models)
+
+[Directory: /chrome-ext](/chrome-ext/)
+
+<a name='lessons'>
+<h2>What I Learnt</h2>
+</a>
+
+This project is an end-to-end Machine Learning based project and it was very challenging too. I have learnt a many skills while working on this project which are mentioned below.
+
+### I have learnt following things from this project:
+- **Exploratory Data Analysis**: I learnt how to explore data and understand the pattern within it. It is very necessary to explore the data before any ML task. We get to know what kind of data is given to us and hence accordingly use the appropriate tools to solve the problem. And also, it is very necessary for extracting features out of the data to make our model perform better.
+
+- **Feature Extraction**: Most of the part of the project was just feature extraction. I extracted more important and more realistic features fromt the data using the existing ones. This task further improved my following skills:
+    - **pandas.groupby**: I used the **`groupby`** method of **pandas** very extensively in the project to extract features.
+    - **pandas.merge**: I also used **`merge`** method of **pandas** to merge the two dataset (the Ball by Ball data and Match data)
+    - **series.agg**: Along with groupby method I have also learnt how to use **`agg`** method on series to extract data.
+
+- **Random ID based splitting for better model performance**: I learnt, how random ID based splitting can be better than the standard *train_test_split* from sklearn. This method of splitting lowers the chances of overfitting the model to a great extent.
+
+- **Plat calibration and Isotonic calibration**: I learnt why calibration is important when our application is relying on model probabilities rather than just class predictions. I learnt two methods of calibration Plat and Isotonic which makes a great difference if applied.
+
+- **Data Scraping using BeautifulSoup**: I scraped the realtime data from the live matches from the *cricbuzz.com* website to get the predictions. I have **BeautifulSoup** extensively in this project for this purpose.
+
+- **RESTful Flask API**: Since, there was no API available to get the match data I had to create my own RESTful API.
+
+- **Creating a web extension**: I created a web extension to display the final result to the user and learnt how I can create a chrome web extension using *JavaScript*, *JSON* and *HTML*.
+
