@@ -82,6 +82,7 @@ Shown below is the density plot after calibration. We can see the density at the
 ![](/images/calibration5.png)
 
 Given below is the notebook for calibrating probabilities.
+
 [Notebook: Calibration.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/Calibration.ipynb)
 
 <a name='flask'>
@@ -91,6 +92,7 @@ Given below is the notebook for calibrating probabilities.
 I created a flask RESTful API to **`GET`** live cricket data from the *cricbuzz.com* website and **`POST`** the win probabilities on our chrome extension to show the realtime match prediction.
 
 The code for the same is given in the script mentioned below.
+
 [Script: main.py](/API/main.py)
 
 <a name='scraping'>
@@ -135,7 +137,7 @@ This project is an end-to-end Machine Learning based project and it was very cha
 
 - **Plat calibration and Isotonic calibration**: I learnt why calibration is important when our application is relying on model probabilities rather than just class predictions. I learnt two methods of calibration Plat and Isotonic which makes a great difference if applied.
 
-- **Data Scraping using BeautifulSoup**: I scraped the realtime data from the live matches from the *cricbuzz.com* website to get the predictions. I have **BeautifulSoup** extensively in this project for this purpose.
+- **Data Scraping using BeautifulSoup**: I scraped the realtime data from the live matches from the *cricbuzz.com* website to get the predictions. And for this, I have used **BeautifulSoup** extensively in this project.
 
 - **RESTful Flask API**: Since, there was no API available to get the match data I had to create my own RESTful API.
 
