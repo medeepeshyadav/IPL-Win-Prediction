@@ -21,7 +21,7 @@ I have trained two models, one for first inning of the match and another for sec
 
 Data preparation using inning-1 data, for this I used **`pandas`** library to explore the data and create new features from the existing features. The notebook given below is the notebook for preparing data for inning-1.
 
-[Notebook](/Data%20Prep%20%26%20Model%20Building/notebooks/data_prep_inn-1.ipynb)
+[Notebook: data_prep_inn-1.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/data_prep_inn-1.ipynb)
 
 <a name='dataprep2'>
 <h2>Data Preparation Inning-2</h2>
@@ -29,7 +29,7 @@ Data preparation using inning-1 data, for this I used **`pandas`** library to ex
 
 Data preparation using inning-2 data, for this I used **`pandas`** library to explore the data and create new features from the existing features. The notebook given below is the notebook for preparing data for inning-2.
 
-[Notebook](/Data%20Prep%20%26%20Model%20Building/notebooks/data_prep_inn-2.ipynb)
+[Notebook: data_prep_inn-2.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/data_prep_inn-2.ipynb)
 
 <a name='datasplit'>
 <h2>Randomised Match ID based splitting</h2>
@@ -37,7 +37,7 @@ Data preparation using inning-2 data, for this I used **`pandas`** library to ex
 
 For splitting my data for model training I did not use the standard **`train_test_split`** from **`sklearn`** library because using the standard train-test split there was great chance of **data leakage** and hence model trained using that data was highly overfit. Hence, I split the data manually by shuffling the match IDs. This lowers the risk of data leakage. Given below is the python script for the same.
 
-[Script](/Data%20Prep%20%26%20Model%20Building/scripts/data_splitter.py)
+[Script: data_splitter.py](/Data%20Prep%20%26%20Model%20Building/scripts/data_splitter.py)
 
 <a name='training'>
 <h2>Model Training Script</h2>
@@ -45,7 +45,7 @@ For splitting my data for model training I did not use the standard **`train_tes
 
 Once, we have split our data. We are ready to train our model. For this project I trained different ML models like, `Logistic Regression`, `Decision Tree`, `Random Forest`, and `Gradient Boosting Decision Tree`. For this purpose, instead of writing the codes in one notebook, I created a python script to automate the process of training different models and saving them instantly using command line prompt with the help of command line arguments. All you need to do is, run this python script from command prompt and pass arguments like `path` of the data, `inn` which is inning of the match, `model_num` which is the number of model we are currently training (this is for saving the model automatically after each run of the script), and finally the `model` the name of the model we want to train (this is recognised by another script, which is **`model_dispatcher`**, it consists of the mapping of model name to its model). The script given below is the script for the automated training of models.
 
-[Script]((/Data%20Prep%20%26%20Model%20Building/scripts/training.py)
+[Script: training.py](/Data%20Prep%20%26%20Model%20Building/scripts/training.py)
 
 <a name='evaluate'>
 <h2>Model Evaluation</h2>
@@ -53,7 +53,7 @@ Once, we have split our data. We are ready to train our model. For this project 
 
 In this notebook, I have the code for evaluating each model's performance trained and saved using the `training.py` script. The code consists of different evaluation metrics such as `Confusion Matrix`, `Precision Recall Curve`, `Receiver Operating Curve` and **a special plot to show the trend of accuracy with delivery of each over in the match** which gives a realistic performance evaluation for this particular application. See the notebook below.
 
-[Notebook](/Data%20Prep%20%26%20Model%20Building/notebooks/model_evaluation.ipynb)
+[Notebook: model_evaluation.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/model_evaluation.ipynb)
 
 <a name='calibration'>
 <h2>Plat and Isotonic Calibration</h2>
