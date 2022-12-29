@@ -73,9 +73,9 @@ The curve shown in the image below is called **reliability curve**. The dotted l
 ### Isotonic and Plat Calibration
 The plot shown below is the **reliablity curve** after we calibrate the probabilites. The green curve is for the **Isotonic Calibration** and the orange curve is for **Plat Calibration**. As we can see the Isotonic Calibrated probabilities give us more close to ideal behavior of the model we choose that for our final probabilities on which we can rely on.
 
-![](/images/calibration5.png)
+![](/images/calibration4.png)
 
 ### Density plot after calibration
 Shown below is the density plot after calibration. We can see the density at the edges (0 and 1) is much high compared to the previous plot, which means we can rely more on these probabilites rather than the old ones as they are more confident.
 
-[](/images/calibration5.png)
+![](/images/calibration5.png)
