@@ -75,10 +75,10 @@ For splitting my data for model training I did not use the standard **`train_tes
 
 - I trained 4 different models **Logistic Regression**, **Decision Tree**, **Random Forest**, **Gradient Boosting Decision Tree** and for each dataset (i.e., inning-1 and inning-2). 
 - To avoid redundancy I created a single python script to train each model for each innings using command line arguments. All you need to do is, run this python script from command prompt and pass arguments like:
-- **`path`** of the data 
-- **`inn`** which is inning of the match
-- **`model_num`** which is the number of model we are currently training (this is for saving the model automatically after each run of the script).
-- **`model`** the name of the model we want to train (this is recognised by another script, which is **`model_dispatcher`**, it consists of the mapping of model name to its model). The script given below is the script for the automated training of models.
+    - **`path`** of the data 
+    - **`inn`** which is inning of the match
+    - **`model_num`** which is the number of model we are currently training (this is for saving the model automatically after each run of the script).
+    - **`model`** the name of the model we want to train (this is recognised by another script, which is **`model_dispatcher`**, it consists of the mapping of model name to its model). The script given below is the script for the automated training of models.
 
 [Script: training.py](/Data%20Prep%20%26%20Model%20Building/scripts/training.py)
 
