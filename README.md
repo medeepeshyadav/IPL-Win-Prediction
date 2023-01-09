@@ -1,50 +1,84 @@
 # IPL-WinProbability-Prediction
-This is my machine learning project. In this project I have used IPL dataset of year 2008 - 2021 from Kaggle.com to train models for predicting the winning probability of teams in an IPL match. This project is an end-to-end application, I have created a chrome extension to display live winning probability of teams using the model trained on the IPL dataset. I have applied Plat and Isotonic calibration on the model's probability values to calibrate them and make them more reliable.
 
-I have trained two models, one for first inning of the match and another for second inning of the match to get more accurate and realistic predictions.
+## Problem Statement
+IPL Win prediction based on IPL historical data. [Click me for details](#problem_descpt)
+
+## Dataset Used
+IPL dataset of year 2008-2020 from kaggle.com. [See data here](https://www.kaggle.com/datasets/patrickb1912/ipl-complete-dataset-20082020)
+
+## Outcome
+1. Two separate ML models for 1st and 2nd inning to make more realistic predicions.
+2. A chrome extension to display live predictions.
+3. RESTful API using FLASK framework
+ 
+## Data Flow Diagram
+![](./images/dfd.png)
+
+## Sequence Diagram
+![](./images/seq%20diag.png)
 
 ## Table of Content
-- [Data Preparation Inning-1](#dataprep1)
-- [Data Preparation Inning-2](#dataprep2)
-- [Randomised Match ID based splitting](#datasplit)
-- [Model Training Script](#training)
+- [Data Gathering | Cleaning | Feature Extraction](#gathering)
+    - [Data Preparation Inning-1](#dataprep1)
+    - [Data Preparation Inning-2](#dataprep2)
+    - [Randomised Match ID based splitting](#datasplit)
+- [Model Training](#mdl_trng)
 - [Model Evaluation](#evaluate)
 - [Plat and Isotonic Calibration](#calibration)
 - [Flask API](#flask)
 - [Data Scraping](#scraping)
-- [Pipeline](#pipeline)
+- [System Pipeline](#pipeline)
 - [Chrome Extension](#extension)
 - [What I Learnt](#lessons)
 
-<a name='dataprep1'>
-<h2>Data Preparation Inning-1</h2>
+<a name='problem_dscpt'>
+<h2>Problem Description</h2>
 </a>
 
-Data preparation using inning-1 data, for this I used **`pandas`** library to explore the data and create new features from the existing features. The notebook given below is the notebook for preparing data for inning-1.
+In this project I have used IPL dataset of year 2008 - 2021 from Kaggle.com to train models for predicting the winning probability of teams in an IPL match. This project is an end-to-end application, I have created a chrome extension to display live winning probabilities of teams using separate models for each inning trained using separate dataset for each inning. I have applied *Plat* and *Isotonic* calibration on the model's probability values to calibrate them and make them more reliable. In order to get the live predictions, I created a dedicated Flask REST api to **GET** the data from website and **POST** the model predictions onto chrome extention.
+
+<a name='gathering'>
+<h2>Data Gathering | Cleaning | Feature Extraction</h2>
+</a>
+
+I took the raw dataset from [here](https://www.kaggle.com/datasets/patrickb1912/ipl-complete-dataset-20082020). The dataset consists of data of both innings. I prepared the data separately for each innings. Here is what I did for each inning:
+- Cleaned it
+- Did some feature extraction to make it ready for training.
+
+<a name='dataprep1'>
+<h3>Data Preparation Inning-1</h3>
+</a>
+
+Data preparation using inning-1 data, for this I used **`pandas`** library to explore the data and create new features from the existing features. Refer to the notebook below to see how its done.
 
 [Notebook: data_prep_inn-1.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/data_prep_inn-1.ipynb)
 
 <a name='dataprep2'>
-<h2>Data Preparation Inning-2</h2>
+<h3>Data Preparation Inning-2</h3>
 </a>
 
-Data preparation using inning-2 data, for this I used **`pandas`** library to explore the data and create new features from the existing features. The notebook given below is the notebook for preparing data for inning-2.
+Data preparation using inning-2 data, for this I used **`pandas`** library to explore the data and create new features from the existing features. Refer to the notebook below to see how its done.
 
 [Notebook: data_prep_inn-2.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/data_prep_inn-2.ipynb)
 
 <a name='datasplit'>
-<h2>Randomised Match ID based splitting</h2>
+<h3>Randomised Match ID based splitting</h3>
 </a>
 
 For splitting my data for model training I did not use the standard **`train_test_split`** from **`sklearn`** library because using the standard train-test split there was great chance of **data leakage** and hence model trained using that data was highly overfit. Hence, I split the data manually by shuffling the match IDs. This lowers the risk of data leakage. Given below is the python script for the same.
 
 [Script: data_splitter.py](/Data%20Prep%20%26%20Model%20Building/scripts/data_splitter.py)
 
-<a name='training'>
-<h2>Model Training Script</h2>
+<a name='mdl_trng'>
+<h2>Model Training</h2>
 </a>
 
-Once, we have split our data. We are ready to train our model. For this project I trained different ML models like, `Logistic Regression`, `Decision Tree`, `Random Forest`, and `Gradient Boosting Decision Tree`. For this purpose, instead of writing the codes in one notebook, I created a python script to automate the process of training different models and saving them instantly using command line prompt with the help of command line arguments. All you need to do is, run this python script from command prompt and pass arguments like `path` of the data, `inn` which is inning of the match, `model_num` which is the number of model we are currently training (this is for saving the model automatically after each run of the script), and finally the `model` the name of the model we want to train (this is recognised by another script, which is **`model_dispatcher`**, it consists of the mapping of model name to its model). The script given below is the script for the automated training of models.
+- I trained 4 different models **Logistic Regression**, **Decision Tree**, **Random Forest**, **Gradient Boosting Decision Tree** and for each dataset (i.e., inning-1 and inning-2). 
+- To avoid redundancy I created a single python script to train each model for each innings using command line arguments. All you need to do is, run this python script from command prompt and pass arguments like:
+- **`path`** of the data 
+- **`inn`** which is inning of the match
+- **`model_num`** which is the number of model we are currently training (this is for saving the model automatically after each run of the script).
+- **`model`** the name of the model we want to train (this is recognised by another script, which is **`model_dispatcher`**, it consists of the mapping of model name to its model). The script given below is the script for the automated training of models.
 
 [Script: training.py](/Data%20Prep%20%26%20Model%20Building/scripts/training.py)
 
@@ -55,6 +89,8 @@ Once, we have split our data. We are ready to train our model. For this project 
 In this notebook, I have the code for evaluating each model's performance trained and saved using the `training.py` script. The code consists of different evaluation metrics such as `Confusion Matrix`, `Precision Recall Curve`, `Receiver Operating Curve` and **a special plot to show the trend of accuracy with delivery of each over in the match** which gives a realistic performance evaluation for this particular application. See the notebook below.
 
 [Notebook: model_evaluation.ipynb](/Data%20Prep%20%26%20Model%20Building/notebooks/model_evaluation.ipynb)
+
+**Conclusion:** After evaluating each model seeing the performance metrics I chose the best model for each inning. For inning-1 data `Logistic Regression` model performed the best, while for inning-2 data `Gradient Boosting Classifier` model performed the best. In next step, I applied calibration on these models to give better predictions.
 
 <a name='calibration'>
 <h2>Plat and Isotonic Calibration</h2>
@@ -99,12 +135,12 @@ The code for the same is given in the script mentioned below.
 <h2>Data Scraping</h2>
 </a>
 
-In order to get the live match data from *cricbuzz.com* website, I used **`BeautifulSoup`** library to get the data in a dictionary and later convert it into dataframe for prediction. The following python script consists of the code for scraping data using BeautifulSoup.
+In order to get the live match data from *cricbuzz.com* website, **`BeautifulSoup`** library is used to get the data in a dictionary and later converted into dataframe for prediction. The following python script consists of the code for scraping data using BeautifulSoup.
 
 [Script: beautifulSoup.py](/API/beautifulSoup.py)
 
 <a name='pipeline'>
-<h2>Pipeline</h2>
+<h2>System Pipeline</h2>
 </a>
 
 Finally, the functional script which consists of the system pipeline code such that, if the inning-1 is going on model for inning-1 will be used and if the inning-2 is going on then the model for inning-2 will be used. The following python script consists of the code for pipeline.
@@ -115,7 +151,10 @@ Finally, the functional script which consists of the system pipeline code such t
 <h2>Chrome Extension</h2>
 </a>
 
-Lastly, I created a chrome extension using **JavaScript** to show the live winning probabilities of each team. Given below is the directory which consists of the files for extension like `manifest.json` (a json file to create chrome extension), `popup.html` (an extension popup to show the output), `content.js`(to talk to our local host and get prediction data form models)
+Lastly, I created a chrome extension using **JavaScript** to showing live winning probabilities for each team. Given below is the directory which consists of:
+- `manifest.json` (a json file to create chrome extension), 
+- `popup.html` (an extension popup to show the output), 
+- `content.js`(to talk to our local host and get prediction data from models)
 
 [Directory: /chrome-ext](/chrome-ext/)
 
@@ -142,6 +181,4 @@ This project is an end-to-end Machine Learning based project and it was very cha
 - **RESTful Flask API**: Since, there was no API available to get the match data I had to create my own RESTful API.
 
 - **Creating a web extension**: I created a web extension to display the final result to the user and learnt how I can create a chrome web extension using *JavaScript*, *JSON* and *HTML*.
-
-- I dont KNow Whats going on.
 
